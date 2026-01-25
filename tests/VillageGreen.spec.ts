@@ -17,7 +17,7 @@ test('Village Green landing page', async ({page}) => {
     await page.getByRole('button', { name: 'close', exact: true }).click();
 
     await page.screenshot({
-    path: 'screenshots/Village Green/mainpage.png',
+    path: 'screenshots/Village Green/mainpage-${Date.now()}.png',
     fullPage: true
     });
         await page.waitForTimeout(2000);
