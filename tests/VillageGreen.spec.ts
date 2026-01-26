@@ -10,16 +10,17 @@ test('Village Green landing page', async ({page}) => {
     await page.getByRole('combobox', { name: 'Sort By' }).click();
     await page.getByRole('button', { name: 'Price (High to Low)' }).click();
 
-    for (let i =0 ; i < 12; i++) {
+    for (let i =0 ; i < 10; i++) {
         await page.mouse.wheel(0, 600);
         await page.waitForTimeout(1000);
     }
     await page.getByRole('button', { name: 'close', exact: true }).click();
 
     await page.screenshot({
-    path: 'screenshots/Village Green/mainpage-${Date.now()}.png',
+    path: 'screenshots/Village Green/mainpage.png',
     fullPage: true
     });
-        await page.waitForTimeout(2000);
+    
+    await page.waitForTimeout(12000);
 
 });

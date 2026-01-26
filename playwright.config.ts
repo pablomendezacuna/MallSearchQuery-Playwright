@@ -1,58 +1,33 @@
 import { defineConfig, devices } from '@playwright/test';
-import 'dotenv/config';
 
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
-
-/**
- * See https://playwright.dev/docs/test-configuration.
- */
 export default defineConfig({
-  testDir: './tests',
+  // Folder results
+  outputDir: 'test-results/', 
+  
+  // Max time per test
+  timeout: 60000,
 
-  /* Run tests in files in parallel */
-  fullyParallel: true,
-  /* Fail the build on CI if you accidentally left test.only in the source code. */
-  forbidOnly: !!process.env.CI,
-  /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
-  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
-  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+  // HTML Report for reports
+  reporter: [['html', { outputFolder: 'playwright-report', open: 'never' }]],
+
+  // Browsers configuration
   use: {
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    // For CI we run headless
+    headless: true,
+
+    // Evidence collection
+    screenshot: 'on',
+    video: 'on-first-retry',
+    trace: 'on', // Black box for debugging
   },
 
-  /* Configure projects for major browsers */
+  // Paralelism configuration for CI 
+  workers: process.env.CI ? 2 : undefined,
+
   projects: [
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
-    } /*,
-
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
     },
-
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    }, */
-
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // }
   ],
-
 });
