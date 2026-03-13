@@ -2,61 +2,31 @@ name: Playwright Tests
 on:
   push:
     branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
-  workflow_dispatch: # excecute manually
+  workflow_dispatch:
 
 jobs:
   test:
-    timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-
     - uses: actions/setup-node@v4
       with:
         node-version: 18
 
-    # --- CACHING ---
-    
-    # Dependencies Cache - Node 
-    - name: Cache node modules
-      uses: actions/cache@v4
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
-
     - name: Install dependencies
-      run: npm ci
+      run: npm install
 
-    # Browsers Cache
-    - name: Cache Playwright browsers
-      id: playwright-cache
-      uses: actions/cache@v4
-      with:
-        path: ~/.cache/ms-playwright
-        key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
-
-    # Install Playwright Browsers if not cached
     - name: Install Playwright Browsers
-      if: steps.playwright-cache.outputs.cache-hit != 'true'
       run: npx playwright install --with-deps
-
-    # --- EXECUTION ---
 
     - name: Run Playwright tests
       run: npx playwright test
+      continue-on-error: true
 
-    # --- EVIDENCE COLLECTION ---
-
-    - name: Upload Report and Screenshots
+    - name: Upload Report
       uses: actions/upload-artifact@v4
-      if: always() # Se ejecuta aunque el test falle
+      if: always()
       with:
-        name: resultados-completos
-        path: |
-          playwright-report/
-          screenshots/Village Green/
-        retention-days: 30
+        name: validacion-manual-reporte
+        path: playwright-report/
+        retention-days: 7

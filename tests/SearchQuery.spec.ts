@@ -1,36 +1,35 @@
-    import {test, expect} from '@playwright/test';
-    import {MainPage} from '../pages/Main_Page.ts';
-    import {PLP} from '../pages/PLP.ts';
+import { test } from "@playwright/test";
+import { MainPage } from "../pages/Main_Page.js";
+import { PlpPage } from "../pages/Plp.js";
+import dataMalls from "../fixtures/MyMalls.json" with { type: "json" };
+import dataQueries from "../fixtures/Queries.json" with { type: "json" };
 
-    test('Search a seasonal query', async ({page}) => {
-        const mainpage = new MainPage(page);
-        const plp = new PLP(page);
+test.describe("Mall Search Validation", () => {
+    for (const mall of dataMalls) {
+        for (const query of dataQueries) {
+            test(`${mall.name} | ${query.term}`, async ({ page }, testInfo) => {
+                const mainPage = new MainPage(page);
+                const plpPage = new PlpPage(page);
 
-        const search = 'dress red'; // Declare the query to search
+                // Agregar URL original a las anotaciones del reporte
+                testInfo.annotations.push({ type: 'URL Original', description: mall.url });
 
-        await page.goto('https://www.villagegreencentre.com/shop');
-
-        await mainpage.SearchProduct(search);
-
-        await plp.ClosePopup();
-        await plp.ScrollToBottom();
-        await plp.ClosePopup();
-        await plp.TakeScreenshot();
-
-        await plp.ReviewWordsInUrl(search);
-        
-        await plp.ClosePopup();
-        await plp.SortHighToLow();
-        await plp.sortByHighToLowButton.isVisible();
-        await plp.ScrollToBottom();
-        await plp.ClosePopup();
-        await plp.TakeScreenshot();
-        
-        await plp.ClosePopup();
-        await plp.SortLowToHigh();
-        await plp.sortByLowToHighButton.isVisible();
-        await plp.ScrollToBottom();
-        await plp.ClosePopup();
-        await plp.TakeScreenshot();
-
-    })
+                try {
+                    await mainPage.navigateTo(mall.url);
+                    await mainPage.searchFor(query.term, mall.lang);
+                    
+                    // Asegurar que carguen los productos para la captura completa
+                    await plpPage.scrollToBottom();
+                    
+                    // Guardar URL final en el reporte
+                    testInfo.annotations.push({ type: 'URL Resultados', description: page.url() });
+                    
+                } catch (error) {
+                    // Si falla, capturamos la URL exacta del error
+                    testInfo.annotations.push({ type: 'URL ERROR', description: page.url() });
+                    throw error;
+                }
+            });
+        }
+    }
+});

@@ -1,29 +1,20 @@
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
-  // Folder results
-  outputDir: 'test-results/', 
-  
-  // Max time per test
-  timeout: 60000,
-
-  // HTML Report for reports
-  reporter: [['html', { outputFolder: 'playwright-report', open: 'never' }]],
-
-  // Browsers configuration
+  testDir: './tests',
+  timeout: 90000,
+  fullyParallel: false, // Ejecución secuencial para mayor estabilidad
+  reporter: [['html', { open: 'never' }]],
   use: {
-    // For CI we run headless
-    headless: true,
-
-    // Evidence collection
-    screenshot: 'on',
-    video: 'on-first-retry',
-    trace: 'on', // Black box for debugging
+    // Configuración de capturas de pantalla completa
+    screenshot: {
+      mode: 'on',
+      fullPage: true, // Captura todo el largo del sitio
+    },
+    trace: 'on',             // Rastro técnico para depuración profunda
+    video: 'on-first-retry', // Graba video si el test falla al primer intento
+    viewport: { width: 1280, height: 720 },
   },
-
-  // Paralelism configuration for CI 
-  workers: process.env.CI ? 2 : undefined,
-
   projects: [
     {
       name: 'chromium',

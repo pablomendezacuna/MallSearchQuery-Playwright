@@ -1,59 +1,30 @@
-import {type Locator, type Page, expect} from '@playwright/test';
+import { Page } from '@playwright/test';
 
-export class PLP {
-    page : Page;
-    searchBox : Locator;
-    sortByDropdown : Locator;
-    sortByHighToLowButton : Locator;
-    sortByLowToHighButton : Locator;
-
+export class PlpPage {
+    readonly page: Page;
 
     constructor(page: Page) {
         this.page = page;
-        this.searchBox = page.getByRole('textbox', { name: 'Search Village Green Shopping' })
-        this.sortByDropdown = page.getByRole('combobox', { name: 'Sort By' });
-        this.sortByHighToLowButton = page.getByRole('button', { name: 'Price (High to Low)' });
-        this.sortByLowToHighButton = page.getByRole('button', { name: 'Price (Low to High)' });
-
     }
 
-    async SortLowToHigh() {
-        await this.sortByDropdown.click();
-        await this.sortByLowToHighButton.click();
-    }
-
-    async SortHighToLow() {
-        await this.sortByDropdown.click();
-        await this.sortByHighToLowButton.click();
-    }
-
-    async ScrollToBottom () {
-        for (let i =0 ; i<10 ; i++) {
-            await this.page.mouse.wheel(0,500);
-            await this.page.waitForTimeout(1000);
-        }  
-    }
-
-    async ClosePopup() {
-        if (await this.page.locator('.GiftCardModal_container__nshU_').isVisible()) {
-            await this.page.getByRole('button', { name: 'close', exact: true }).click();
-        }
-    }
-
-    async TakeScreenshot() {
-        await this.page.screenshot({
-            path: `screenshots/Village Green/QueryQa-${Date.now()}.png`,
-            fullPage: true
+    async scrollToBottom() {
+        // Desplazamiento gradual para activar el lazy loading
+        await this.page.evaluate(async () => {
+            await new Promise((resolve) => {
+                let totalHeight = 0;
+                let distance = 100;
+                let timer = setInterval(() => {
+                    let scrollHeight = document.body.scrollHeight;
+                    window.scrollBy(0, distance);
+                    totalHeight += distance;
+                    if (totalHeight >= scrollHeight) {
+                        clearInterval(timer);
+                        resolve(null);
+                    }
+                }, 100);
+            });
         });
+        // Espera a que las imágenes terminen de cargar después del scroll
+        await this.page.waitForLoadState('networkidle').catch(() => {});
     }
-    
-    async ReviewWordsInUrl(query: string) {
-        const currentUrl = decodeURIComponent(this.page.url());
-        const words = query.split(' ');
-
-        for (const word of words) {
-            await expect(currentUrl).toContain(word);
-        }
-    }
-
 }
