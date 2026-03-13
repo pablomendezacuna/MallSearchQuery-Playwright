@@ -1,8 +1,10 @@
 import { test } from "@playwright/test";
-import { MainPage } from "../pages/Main_Page.js";
-import { PlpPage } from "../pages/Plp.js";
-import dataMalls from "../fixtures/MyMalls.json" with { type: "json" };
-import dataQueries from "../fixtures/Queries.json" with { type: "json" };
+import { MainPage } from "../pages/Main_Page";
+import { PlpPage } from "../pages/Plp";
+
+// Importación estándar de JSON para Playwright
+const dataMalls = require("../fixtures/MyMalls.json");
+const dataQueries = require("../fixtures/Queries.json");
 
 test.describe("Mall Search Validation", () => {
     for (const mall of dataMalls) {
@@ -24,7 +26,7 @@ test.describe("Mall Search Validation", () => {
                     // Guardar URL final en el reporte
                     testInfo.annotations.push({ type: 'URL Resultados', description: page.url() });
                     
-                } catch (error) {
+                } catch (error: any) {
                     // Si falla, capturamos la URL exacta del error
                     testInfo.annotations.push({ type: 'URL ERROR', description: page.url() });
                     throw error;
