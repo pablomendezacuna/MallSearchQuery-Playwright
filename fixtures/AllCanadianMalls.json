@@ -1,0 +1,62 @@
+[
+  {
+    "name": "cushmanwakefield-bayshore-shopping-centre",
+    "url": "https://bayshoreshoppingcentre.com/whatsinstore",
+    "lang": "en"
+  },
+  {
+    "name": "cushmanwakefield-erin-mills",
+    "url": "https://erinmills.ca/whatsinstore",
+    "lang": "en"
+  },
+  {
+    "name": "cushmanwakefield-midtown",
+    "url": "https://shopmidtown.ca/whatsinstore",
+    "lang": "en"
+  },
+  {
+    "name": "morguard-bramalea-city-centre",
+    "url": "https://bramaleacitycentre.ca/theshoplist",
+    "lang": "en"
+  },
+  {
+    "name": "morguard-coquitlam-centre",
+    "url": "https://coquitlamcentre.com/theshoplist",
+    "lang": "en"
+  },
+  {
+    "name": "morguard-french-place-rosemere",
+    "url": "https://placerosemere.com/acheter",
+    "lang": "fr"
+  },
+  {
+    "name": "morguard-french-st-laurent-shopping-centre",
+    "url": "https://shopstlaurent.com/buy/fr",
+    "lang": "fr"
+  },
+  {
+    "name": "morguard-place-rosemere",
+    "url": "https://placerosemere.com/acheter/en",
+    "lang": "en"
+  },
+  {
+    "name": "morguard-pine-centre",
+    "url": "https://pinecentre.com/buy",
+    "lang": "en"
+  },
+  {
+    "name": "morguard-prairie-mall",
+    "url": "https://shopprairiemall.com/buy",
+    "lang": "en"
+  },
+  {
+    "name": "morguard-st-laurent-shopping-centre",
+    "url": "https://shopstlaurent.com/buy",
+    "lang": "en"
+  },
+  {
+    "name": "bentallgreenoak-village-green",
+    "url": "https://www.villagegreencentre.com/shop",
+    "lang": "en"
+  }
+]

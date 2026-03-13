@@ -1,0 +1,42 @@
+[
+  {
+    "name": "cushmanwakefield-bayshore-shopping-centre",
+    "url": "https://bayshoreshoppingcentre.com/whatsinstore",
+    "lang": "en"
+  },
+  {
+    "name": "cushmanwakefield-erin-mills",
+    "url": "https://erinmills.ca/whatsinstore",
+    "lang": "en"
+  },
+  {
+    "name": "cushmanwakefield-midtown",
+    "url": "https://shopmidtown.ca/whatsinstore",
+    "lang": "en"
+  },
+  {
+    "name": "bentallgreenoak-village-green",
+    "url": "https://www.villagegreencentre.com/shop",
+    "lang": "en"
+  },
+  {
+    "name": "kings-cross",
+    "url": "https://www.kingscross.co.uk/shop",
+    "lang": "en"
+  },
+  {
+    "name": "plaza-las-americas",
+    "url": "http://plazaplus.plazalasamericas.com",
+    "lang": "en"
+  },
+  {
+    "name": "plaza-del-caribe",
+    "url": "http://plazaplus.plazadelcaribe.com/",
+    "lang": "en"
+  },
+  {
+    "name": "mall-of-america",
+    "url": "http://shop.mallofamerica.com",
+    "lang": "en"
+  }
+]
