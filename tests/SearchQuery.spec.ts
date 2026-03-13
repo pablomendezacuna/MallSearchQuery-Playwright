@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { MainPage } from '../pages/main_page';
+import { MainPage } from '../pages/Main_Page';
 import { PlpPage } from '../pages/Plp';
 
 // Importación de datos
