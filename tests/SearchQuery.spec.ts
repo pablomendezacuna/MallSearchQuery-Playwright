@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import { MainPage } from '../pages/main_page';
+import { MainPage } from '../pages/Main_Page';
 import { PlpPage } from '../pages/Plp';
 
 // Importación de datos
@@ -18,12 +18,9 @@ test.describe('Mall Search Validation', () => {
                 try {
                     await mainPage.navigateTo(mall.url);
                     await mainPage.searchFor(query.term, mall.lang);
-                    
-                    // Esperar carga y scroll
                     await plpPage.scrollToBottom();
                     
                     testInfo.annotations.push({ type: 'URL Resultados', description: page.url() });
-                    
                 } catch (error) {
                     testInfo.annotations.push({ type: 'URL ERROR', description: page.url() });
                     throw error;
