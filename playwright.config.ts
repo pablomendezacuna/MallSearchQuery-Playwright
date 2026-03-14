@@ -7,7 +7,7 @@ export default defineConfig({
   fullyParallel: false,
   reporter: [['html', { open: 'never' }]],
   use: {
-    // Las credenciales ya no están escritas aquí, se leen del sistema
+    // Basic Authentication credentials handled via Environment Variables
     httpCredentials: {
       username: process.env.MALL_HTTP_USER || '',
       password: process.env.MALL_HTTP_PASSWORD || '',

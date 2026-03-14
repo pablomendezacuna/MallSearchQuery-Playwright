@@ -8,6 +8,7 @@ export class PlpPage {
     }
 
     async scrollToBottom() {
+        // Smooth scroll to the bottom to trigger lazy-loaded images
         await this.page.evaluate(async () => {
             await new Promise((resolve) => {
                 let totalHeight = 0;
@@ -23,6 +24,7 @@ export class PlpPage {
                 }, 100);
             });
         });
+        // Wait for network to settle after scrolling
         await this.page.waitForLoadState('networkidle').catch(() => {});
     }
 }
